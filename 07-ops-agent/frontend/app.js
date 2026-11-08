@@ -22,8 +22,8 @@ function hostRow(item) {
     escape(item.os),
     escape(item.ip),
     escape(item.owner),
-    badge(item.status, tone(item.status)),
-    item.checks.filter((check) => check.status !== "ok").length,
+    badge(item.status, tone(item.status)).outerHTML,
+    String(item.checks.filter((check) => check.status !== "ok").length),
   ];
 }
 

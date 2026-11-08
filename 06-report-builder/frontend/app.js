@@ -6,7 +6,18 @@ function lines(id) {
 }
 
 function pairs(id, keys) {
-  return lines(id).map((line) => Object.fromEntries(line.split(",").map((part) => part.trim()).slice(0, keys.length).map((part, index) => [keys[index], part])));
+  return lines(id).map((line) => toObject(line, keys)).filter(Boolean);
+}
+
+function toObject(line, keys) {
+  const parts = line.split(",").map((part) => part.trim());
+  const head = parts.slice(0, keys.length - 1);
+  const tail = parts.slice(keys.length - 1).join(", ");
+  return Object.fromEntries(keys.map((key, index) => [key, valueAt(head, tail, index, keys.length)]));
+}
+
+function valueAt(head, tail, index, size) {
+  return index === size - 1 ? tail : head[index] || "";
 }
 
 function payload() {
@@ -40,12 +51,27 @@ async function preview() {
   return data;
 }
 
+let downloadUrl = "";
+
 function show(data) {
   document.querySelector("#preview-box").innerHTML = data.html;
   document.querySelector("#severity").textContent = Object.entries(data.severity).map(([key, value]) => `${key} ${value}`).join(" · ") || "без наблюдений";
   document.querySelector("#template-title").textContent = `${data.template} · ${data.tlp}`;
   document.querySelector("#status").textContent = "превью обновлено";
+  attachDownload(data);
   return data;
+}
+
+function attachDownload(data) {
+  if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+  downloadUrl = URL.createObjectURL(new Blob([data.markdown], { type: "text/markdown;charset=utf-8" }));
+  const link = document.querySelector("#download");
+  link.href = downloadUrl;
+  link.download = `${slug(data.title)}.md`;
+}
+
+function slug(value) {
+  return String(value || "report").toLowerCase().replace(/[^a-zа-я0-9]+/g, "-").replace(/^-+|-+$/g, "") || "report";
 }
 
 async function save() {

@@ -10,7 +10,7 @@ const COLORS = {
   asn: "#b98cff",
   host: "#ff8a5c",
 };
-const state = { nodes: [], edges: [], selected: null, view: { scale: 1, x: 0, y: 0 } };
+const state = { nodes: [], edges: [], selected: null };
 
 function radius(node) {
   return 6 + Math.min(10, Number(node.risk || 0) / 12);
@@ -45,14 +45,14 @@ function stepOnce(nodes, links, width, height) {
 }
 
 function applyRepulsion(nodes) {
-  nodes.forEach((a, i) => nodes.forEach((b, j) => {
+  nodes.forEach((a) => nodes.forEach((b) => {
+    if (a === b) return;
     const dx = a.x - b.x;
     const dy = a.y - b.y;
     const distance = Math.max(Math.hypot(dx, dy), 1);
     const force = 900 / (distance * distance);
     a.vx += (dx / distance) * force;
     a.vy += (dy / distance) * force;
-    if (i === j) return;
   }));
 }
 
