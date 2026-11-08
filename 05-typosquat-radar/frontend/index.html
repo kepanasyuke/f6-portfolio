@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Typosquat Radar</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#scan">Сканер</a>
+          <a href="#check">Проверка домена</a>
+          <a href="#watch">Наблюдение</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 05 · бренд-защита</p>
+        <h1 class="display">Похожий<br />домен не<br />спрячется</h1>
+        <p class="lede">
+          Радар строит варианты бренда восемью техниками (пропуск, дублирование, перестановка, омоглифы, замены
+          <span class="mono">rn→m</span>, дефисы, смена TLD, поддомены), считает расстояние Левенштейна и риск по
+          сигналам регистрации. Все результаты складываются в SQLite.
+        </p>
+      </section>
+
+      <section class="section-block" id="scan">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Сканер</p>
+            <h2 class="section">Варианты и их риск</h2>
+          </div>
+          <div class="row">
+            <span class="badge" id="summary">—</span>
+            <span class="badge badge--ok" id="health">проверка API…</span>
+          </div>
+        </div>
+        <div class="toolbar">
+          <label class="field" style="flex: 2 1 260px"><span>Бренд-домен</span><input id="brand" value="f6security.example" /></label>
+          <label class="field"><span>Показывать</span><input id="limit" type="number" min="5" max="200" value="40" /></label>
+          <button class="btn" id="scan-btn" type="button">Сканировать</button>
+        </div>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="section-block">
+        <div class="grid grid--two" id="cards"></div>
+      </section>
+
+      <section class="section-block" id="check">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Точечная проверка</p>
+            <h2 class="section">Домен из письма или лога</h2>
+          </div>
+          <span class="badge" id="check-verdict">—</span>
+        </div>
+        <div class="toolbar">
+          <label class="field" style="flex: 3 1 280px"><span>Домен</span><input id="domain" placeholder="f6.examp1e.com" /></label>
+          <button class="btn btn--ghost" id="check-btn" type="button">Проверить</button>
+        </div>
+        <div class="panel panel--tight" id="check-result"><div class="empty">Введите домен</div></div>
+      </section>
+
+      <section class="section-block" id="watch">
+        <div class="section-head">
+          <div>
+            <p class="kicker">SQLite</p>
+            <h2 class="section">Список наблюдения</h2>
+          </div>
+          <button class="btn btn--ghost" id="reload-watch" type="button">Обновить</button>
+        </div>
+        <div class="panel panel--tight" id="watch-table"></div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

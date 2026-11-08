@@ -1,0 +1,28 @@
+[MAIN]
+py-version = 3.12
+jobs = 0
+
+[MESSAGES CONTROL]
+disable =
+    missing-function-docstring,
+    missing-class-docstring,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-positional-arguments,
+    duplicate-code,
+    fixme,
+    invalid-name,
+    broad-exception-caught,
+    import-error,
+    c-extension-no-member
+
+[DESIGN]
+max-statements = 2
+max-branches = 2
+max-locals = 8
+max-args = 6
+max-bool-expr = 2
+max-nested-blocks = 1
+
+[FORMAT]
+max-line-length = 110

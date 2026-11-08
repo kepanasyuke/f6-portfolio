@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Report Builder</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+    <style>
+      .doc {
+        max-height: 620px;
+        overflow: auto;
+        color: #e8e8ea;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .doc h1 {
+        margin: 0 0 14px;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+      .doc h2 {
+        margin: 22px 0 10px;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .doc h3 {
+        margin: 18px 0 8px;
+        font-size: 14px;
+      }
+      .doc table {
+        margin: 8px 0 4px;
+      }
+      .doc th,
+      .doc td {
+        font-family: var(--mono);
+        font-size: 11.5px;
+      }
+      .doc blockquote {
+        margin: 0 0 16px;
+        padding: 8px 14px;
+        border-left: 2px solid var(--accent);
+        color: var(--muted);
+      }
+      .doc code {
+        padding: 1px 5px;
+        background: rgba(255, 255, 255, 0.08);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+      .doc ul,
+      .doc ol {
+        margin: 8px 0;
+        padding-left: 20px;
+      }
+      .doc hr {
+        margin: 20px 0;
+        border: 0;
+        border-top: 1px solid var(--line);
+      }
+      .form-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#builder">Конструктор</a>
+          <a href="#history">История</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 06 · отчётность</p>
+        <h1 class="display">Отчёт<br />за минуту,<br />а не за вечер</h1>
+        <p class="lede">
+          Структурированное описание угрозы собирается в Markdown по шаблону и сразу рендерится в HTML собственным
+          конвертером: заголовки, таблицы, списки, цитаты, инлайн-разметка. Отчёт сохраняется в SQLite и выгружается
+          как <span class="mono">.md</span>.
+        </p>
+      </section>
+
+      <section class="section-block" id="builder">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Конструктор</p>
+            <h2 class="section">Собрать отчёт для портала</h2>
+          </div>
+          <div class="row">
+            <span class="badge" id="severity">—</span>
+            <button class="btn btn--ghost" id="sample" type="button">Взять пример</button>
+          </div>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack">
+            <div class="form-grid">
+              <label class="field" style="grid-column: 1 / -1"><span>Заголовок</span><input id="title" /></label>
+              <label class="field"><span>Шаблон</span><select id="template"></select></label>
+              <label class="field"><span>TLP</span><select id="tlp"></select></label>
+              <label class="field"><span>Автор</span><input id="author" value="analyst" /></label>
+            </div>
+            <label class="field"><span>Резюме</span><textarea id="summary"></textarea></label>
+            <label class="field">
+              <span>Индикаторы: по строке <span class="mono">тип, значение</span></span>
+              <textarea id="iocs" spellcheck="false"></textarea>
+            </label>
+            <label class="field">
+              <span>Наблюдения: по строке <span class="mono">критичность, заголовок, детали</span></span>
+              <textarea id="findings" spellcheck="false"></textarea>
+            </label>
+            <label class="field">
+              <span>Рекомендации: по строке на пункт</span>
+              <textarea id="recommendations" spellcheck="false"></textarea>
+            </label>
+            <div class="row">
+              <button class="btn" id="save" type="button">Сохранить отчёт</button>
+              <button class="btn btn--ghost" id="preview" type="button">Обновить превью</button>
+              <a class="btn btn--ghost" id="download" href="#" download="report.md">Скачать .md</a>
+            </div>
+          </div>
+          <div class="panel stack">
+            <div class="between">
+              <span class="mono muted" id="status">превью</span>
+              <span class="badge" id="template-title">—</span>
+            </div>
+            <div class="doc" id="preview-box"><div class="empty">Заполните поля и нажмите «Обновить превью»</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="history">
+        <div class="section-head">
+          <div>
+            <p class="kicker">SQLite</p>
+            <h2 class="section">Сохранённые отчёты</h2>
+          </div>
+          <button class="btn btn--ghost" id="reload" type="button">Обновить</button>
+        </div>
+        <div class="panel panel--tight" id="history-box"></div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

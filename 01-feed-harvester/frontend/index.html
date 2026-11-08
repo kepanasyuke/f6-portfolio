@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Feed Harvester</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#iocs">Индикаторы</a>
+          <a href="#ingest">Приём фидов</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 01 · парсинг и обогащение</p>
+        <h1 class="display">Собирай<br />индикаторы<br />без ручной работы</h1>
+        <p class="lede">
+          Harvester принимает CSV, JSON и построчные фиды с обфускацией (<span class="mono">hxxp</span>,
+          <span class="mono">[.]</span>), нормализует записи, определяет тип индикатора и складывает всё в SQLite
+          с дедупликацией по значению.
+        </p>
+      </section>
+
+      <section class="section-block" id="stats">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Состояние базы</p>
+            <h2 class="section">Индикаторы в хранилище</h2>
+          </div>
+          <div class="row">
+            <span class="badge badge--ok" id="health">проверка API…</span>
+            <button class="btn btn--ghost" id="reload" type="button">Обновить</button>
+          </div>
+        </div>
+        <div class="stats" id="stats-grid"></div>
+      </section>
+
+      <section class="section-block" id="iocs">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Поиск по базе</p>
+            <h2 class="section">Индикаторы компрометации</h2>
+          </div>
+          <span class="badge" id="count">0 записей</span>
+        </div>
+        <div class="toolbar">
+          <label class="field"><span>Тип</span><select id="kind"></select></label>
+          <label class="field"><span>Критичность</span><select id="severity"></select></label>
+          <label class="field"><span>Значение содержит</span><input id="query" placeholder="example" /></label>
+          <button class="btn" id="apply" type="button">Искать</button>
+        </div>
+        <div class="panel panel--tight" id="results"></div>
+      </section>
+
+      <section class="section-block" id="ingest">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Ручной приём</p>
+            <h2 class="section">Разобрать фид</h2>
+          </div>
+          <button class="btn btn--ghost" id="load-all" type="button">Загрузить все файлы</button>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack">
+            <label class="field">
+              <span>Формат</span>
+              <select id="format">
+                <option value="csv">CSV</option>
+                <option value="json">JSON</option>
+                <option value="txt">TXT (построчный)</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Содержимое фида</span>
+              <textarea id="content" placeholder="203.0.113.10|high|manual|80|2026-10-01|test"></textarea>
+            </label>
+            <button class="btn" id="ingest-run" type="button">Разобрать и сохранить</button>
+            <div class="mono muted" id="ingest-result">—</div>
+          </div>
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Файлы в <span class="mono">data/feeds</span></p>
+            <div id="feeds" class="row"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

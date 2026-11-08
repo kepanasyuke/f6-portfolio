@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Botnet Map</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+    <style>
+      .graph-wrap {
+        position: relative;
+        border: 1px solid var(--line);
+        background: #070708;
+      }
+      #graph {
+        display: block;
+        width: 100%;
+        height: clamp(380px, 58vh, 620px);
+      }
+      .graph-hint {
+        position: absolute;
+        right: 14px;
+        bottom: 12px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+        pointer-events: none;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 14px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11.5px;
+      }
+      .legend i {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin-right: 6px;
+        border-radius: 50%;
+      }
+      .node-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .node-chip {
+        padding: 6px 10px;
+        border: 1px solid var(--line-strong);
+        background: transparent;
+        color: var(--fg);
+        cursor: pointer;
+        font-family: var(--mono);
+        font-size: 11.5px;
+      }
+      .node-chip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#map">Карта</a>
+          <a href="#pivot">Пивот</a>
+          <a href="#schema">Схема</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 04 · инфраструктура</p>
+        <h1 class="display">Один узел<br />тянет<br />всю сеть</h1>
+        <p class="lede">
+          Домены, IP, хеши, сертификаты и регистранты связаны рёбрами с уверенностью. Пивот — это обход графа в обе
+          стороны по рекурсивному CTE (SQLite локально, PostgreSQL-схема и функция <span class="mono">reachable()</span>
+          — в <span class="mono">data/schema.postgres.sql</span>).
+        </p>
+      </section>
+
+      <section class="section-block" id="map">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Карта</p>
+            <h2 class="section">Инфраструктура группировки</h2>
+          </div>
+          <div class="row">
+            <span class="badge" id="counts">—</span>
+            <button class="btn btn--ghost" id="reset" type="button">Сбросить вид</button>
+          </div>
+        </div>
+        <div class="graph-wrap">
+          <canvas id="graph"></canvas>
+          <div class="graph-hint">клик по узлу — пивот на 1 шаг</div>
+        </div>
+        <div class="legend" id="legend"></div>
+      </section>
+
+      <section class="section-block" id="pivot">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Пивот</p>
+            <h2 class="section">Соседи выбранного узла</h2>
+          </div>
+          <span class="badge badge--accent" id="selected">узел не выбран</span>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack" id="node-card">
+            <div class="empty">Выберите узел на карте или в списке</div>
+          </div>
+          <div class="panel stack">
+            <label class="field">
+              <span>Поиск по значению</span>
+              <input id="search" placeholder="example, 203.0.113" />
+            </label>
+            <div class="node-list" id="node-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="schema">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Порт в продакшн</p>
+            <h2 class="section">Схема PostgreSQL</h2>
+          </div>
+          <button class="btn btn--ghost" id="load-schema" type="button">Показать DDL</button>
+        </div>
+        <pre class="panel mono" id="schema-box" style="white-space: pre-wrap; font-size: 12px; margin: 0">—</pre>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

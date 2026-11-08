@@ -1,0 +1,11 @@
+id: F6-0002
+title: Неуспешный вход по SSH под привилегированной учётной записью
+severity: high
+tactic: credential-access
+technique: T1110
+condition: all
+selection:
+  event.type: auth_failure
+  user.name:
+    - root
+    - admin

@@ -1,0 +1,9 @@
+id: F6-0001
+title: PowerShell cradle с загрузкой полезной нагрузки из сети
+severity: critical
+tactic: execution
+technique: T1059.001
+condition: all
+selection:
+  process.name: powershell.exe
+  command_line: "re:(?i)(downloadstring|invoke-expression|\\biex\\b|frombase64string)"

@@ -1,0 +1,12 @@
+id: F6-0003
+title: Сетевое обращение к домену из фида DGA
+severity: medium
+tactic: command-and-control
+technique: T1568.002
+condition: all
+selection:
+  event.type: network
+  destination.domain:
+    - cdn-login.example.com
+    - update.example.co
+    - "*.example.net"

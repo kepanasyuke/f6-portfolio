@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Log Forge</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#search">Поиск</a>
+          <a href="#index">Индекс</a>
+          <a href="#ingest">Приём логов</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 03 · нормализация и поиск</p>
+        <h1 class="display">Журналы<br />в один<br />формат</h1>
+        <p class="lede">
+          Syslog авторизации, access-логи nginx и выгрузка Windows приводятся к полям в духе ECS, кладутся в SQLite
+          и попадают в собственный инвертированный индекс. Поиск — по словам, с поддержкой
+          <span class="mono">*</span> и ранжированием по IDF.
+        </p>
+      </section>
+
+      <section class="section-block" id="search">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Поиск</p>
+            <h2 class="section">Что ищем в журналах</h2>
+          </div>
+          <span class="badge" id="hits">0 совпадений</span>
+        </div>
+        <div class="toolbar">
+          <label class="field" style="flex: 3 1 320px">
+            <span>Запрос</span>
+            <input id="query" value="powershell" placeholder="например: failed root 203.0.113.*" />
+          </label>
+          <button class="btn" id="go" type="button">Искать</button>
+          <button class="btn btn--ghost" id="all" type="button">Всё подряд</button>
+        </div>
+        <div class="stack" id="results"></div>
+      </section>
+
+      <section class="section-block" id="index">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Индекс</p>
+            <h2 class="section">Статистика хранилища</h2>
+          </div>
+          <button class="btn btn--ghost" id="reindex" type="button">Пересобрать индекс</button>
+        </div>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="section-block" id="ingest">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Приём</p>
+            <h2 class="section">Разобрать журнал</h2>
+          </div>
+          <span class="badge" id="ingest-status">—</span>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack">
+            <label class="field">
+              <span>Формат</span>
+              <select id="format">
+                <option value="syslog">Syslog (auth.log)</option>
+                <option value="nginx">nginx combined</option>
+                <option value="windows">CSV Windows</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Содержимое</span>
+              <textarea id="content" spellcheck="false">Oct  2 14:11:05 edge-gw-01 sshd[4200]: Failed password for root from 203.0.113.50 port 51555 ssh2</textarea>
+            </label>
+            <button class="btn" id="ingest-run" type="button">Нормализовать и сохранить</button>
+          </div>
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Маппинг полей (как в OpenSearch)</p>
+            <pre class="mono" id="mapping" style="margin: 0; white-space: pre-wrap; font-size: 11.5px">—</pre>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

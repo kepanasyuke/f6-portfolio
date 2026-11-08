@@ -1,0 +1,5 @@
+# Построчный фид: value | severity | source | confidence | first_seen | tags
+203[.]0[.]113[.]99|critical|post-hunt|86|2026-09-28|c2,proxy
+track[.]example[.]io|high|post-hunt|74|2026-09-28|redirect
+d41d8cd98f00b204e9800998ecf8427e|medium|sandbox-export|55|2026-09-29|dropper
+198[.]51[.]100[.]201|low|registry-scan|37|2026-09-30|open-proxy
