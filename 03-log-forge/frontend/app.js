@@ -1,4 +1,4 @@
-﻿import { initClouds } from "/shared/clouds.js";
+import { initClouds } from "/shared/clouds.js";
 import { danger, el, escape, fetchJson, number, render } from "/shared/api.js";
 
 const HIGHLIGHTS = ["@timestamp", "host", "event.category", "event.outcome", "user.name", "source.ip", "process.name", "http.response.status_code", "url.path"];
@@ -21,11 +21,16 @@ function documentCard(doc) {
   return el("div", { class: "panel stack" }, [
     el("div", { class: "between" }, [
       el("span", { class: "mono muted", text: `${doc.id || "—"} · ${doc["event.dataset"] || "raw"}` }),
-      el("span", { class: "badge badge--accent", text: `score ${doc._score}` }),
+      scoreBadge(doc),
     ]),
     el("div", { class: "stack", style: "gap:6px" }, HIGHLIGHTS.filter((field) => doc[field] !== undefined).map((field) => kv(field, doc[field]))),
     el("div", { class: "mono muted", style: "font-size:12px;word-break:break-all", text: doc.message || "" }),
   ]);
+}
+
+function scoreBadge(doc) {
+  if (doc._score === undefined) return badge(doc["event.category"] || "log");
+  return badge(`score ${doc._score}`, "accent");
 }
 
 async function stats() {

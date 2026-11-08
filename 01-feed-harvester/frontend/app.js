@@ -1,4 +1,4 @@
-﻿import { initClouds } from "/shared/clouds.js";
+import { initClouds } from "/shared/clouds.js";
 import { badge, danger, el, escape, fetchJson, number, render, table } from "/shared/api.js";
 
 const COLUMNS = [
@@ -37,8 +37,10 @@ function stat(value, label) {
 }
 
 function fillSelect(select, values, placeholder) {
+  const current = select.value;
   select.replaceChildren(el("option", { value: "", text: placeholder }));
   values.forEach((value) => select.append(el("option", { value, text: value })));
+  select.value = values.includes(current) ? current : "";
 }
 
 async function loadStats() {
