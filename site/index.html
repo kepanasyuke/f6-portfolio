@@ -20,12 +20,12 @@
       </header>
 
       <section class="hero">
-        <p class="kicker">Портфолио стенда · 7 сервисов · Python + SQLite</p>
+        <p class="kicker">Портфолио стенда · 8 сервисов · Python + SQLite</p>
         <h1 class="display">Разведка<br />угроз,<br />а не слайды</h1>
         <p class="lede">
           Семь небольших, но рабочих сервисов под задачи команды Threat Intelligence: парсинг фидов, правила
           хантинга, нормализация журналов, граф инфраструктуры, бренд-защита, отчёты для портала и эксплуатация
-          серверов. У каждого — бэкенд на FastAPI, фронтенд без сборки и свой набор тестов.
+          серверов — плюс восьмой сервис-портал, который показывает содержимое всех баз в одном окне. У каждого — бэкенд на FastAPI, фронтенд без сборки и свой набор тестов.
         </p>
         <div class="row" style="margin-top: 28px">
           <a class="btn" href="#projects">Смотреть проекты</a>
@@ -119,8 +119,19 @@
               <span class="tag">администрирование</span><span class="tag">hardening</span>
             </div>
           </a>
+          <a class="card" href="http://127.0.0.1:8109" target="_blank" rel="noreferrer">
+            <span class="card__index">08 · порт 8109</span>
+            <h3 class="card__title">Data Portal</h3>
+            <p class="card__text">
+              Корпоративный обозреватель: все SQLite базы стенда в одном окне — сводка показателей, дерево
+              источников, таблицы с поиском, сортировкой, пагинацией и выгрузкой CSV.
+            </p>
+            <div class="card__foot">
+              <span class="tag">портал</span><span class="tag">sqlite</span><span class="tag">только чтение</span>
+            </div>
+          </a>
           <div class="card">
-            <span class="card__index">08 · портфель</span>
+            <span class="card__index">09 · портфель</span>
             <h3 class="card__title">Общий слой</h3>
             <p class="card__text">
               Дизайн-система F6 с анимацией облаков, общий JS-хелпер, линтер-правила и AST-чекер стиля, единый
@@ -228,7 +239,8 @@
               8104 — Botnet Map<br />
               8105 — Typosquat Radar<br />
               8106 — Report Builder<br />
-              8107 — Ops Agent
+              8107 — Ops Agent<br />
+              8109 — Data Portal
             </div>
             <p class="muted" style="margin: 0">
               У каждого сервиса есть <span class="mono">/api/docs</span> и набор тестов:
