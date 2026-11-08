@@ -24,7 +24,8 @@ $services = @(
     @{ name = "04-botnet-map"; port = 8104; dir = (Join-Path $root "04-botnet-map") },
     @{ name = "05-typosquat-radar"; port = 8105; dir = (Join-Path $root "05-typosquat-radar") },
     @{ name = "06-report-builder"; port = 8106; dir = (Join-Path $root "06-report-builder") },
-    @{ name = "07-ops-agent"; port = 8107; dir = (Join-Path $root "07-ops-agent") }
+    @{ name = "07-ops-agent"; port = 8107; dir = (Join-Path $root "07-ops-agent") },
+    @{ name = "08-data-portal"; port = 8109; dir = (Join-Path $root "08-data-portal") }
 )
 
 $started = @()
