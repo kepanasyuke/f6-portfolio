@@ -34,7 +34,7 @@ SELECT id, MIN(depth) FROM reach GROUP BY id;
 ## Запуск и тесты
 
 ```powershell
-.\run.ps1                                  # http://127.0.0.1:8104
+.\run.ps1                                  # http://127.0.0.1:8204
 ..\.venv\Scripts\python.exe -m pytest . -q
 ```
 

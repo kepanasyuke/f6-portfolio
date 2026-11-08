@@ -11,7 +11,7 @@
 
 ```powershell
 .\run.ps1
-# http://127.0.0.1:8101 — интерфейс, /api/docs — OpenAPI
+# http://127.0.0.1:8201 — интерфейс, /api/docs — OpenAPI
 ```
 
 ## Тесты

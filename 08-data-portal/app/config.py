@@ -8,56 +8,56 @@ FRONTEND_DIR = PROJECT_DIR / "frontend"
 SHARED_DIR = ROOT_DIR / "shared"
 SERVICE_NAME = "data-portal"
 VERSION = "1.0.0"
-PORT = 8109
+PORT = 8209
 
 REGISTRY = (
     {
         "key": "iocs",
         "title": "Индикаторы компрометации",
         "service": "Feed Harvester",
-        "port": 8101,
+        "port": 8201,
         "db": "01-feed-harvester/data/iocs.sqlite3",
     },
     {
         "key": "hunt",
         "title": "Правила и детекции",
         "service": "Hunt Rules",
-        "port": 8102,
+        "port": 8202,
         "db": "02-hunt-rules/data/hunt.sqlite3",
     },
     {
         "key": "logs",
         "title": "Нормализованные журналы",
         "service": "Log Forge",
-        "port": 8103,
+        "port": 8203,
         "db": "03-log-forge/data/logs.sqlite3",
     },
     {
         "key": "graph",
         "title": "Граф инфраструктуры",
         "service": "Botnet Map",
-        "port": 8104,
+        "port": 8204,
         "db": "04-botnet-map/data/graph.sqlite3",
     },
     {
         "key": "radar",
         "title": "Похожие домены",
         "service": "Typosquat Radar",
-        "port": 8105,
+        "port": 8205,
         "db": "05-typosquat-radar/data/radar.sqlite3",
     },
     {
         "key": "reports",
         "title": "Отчёты портала",
         "service": "Report Builder",
-        "port": 8106,
+        "port": 8206,
         "db": "06-report-builder/data/reports.sqlite3",
     },
     {
         "key": "ops",
         "title": "Инвентарь и метрики",
         "service": "Ops Agent",
-        "port": 8107,
+        "port": 8207,
         "db": "07-ops-agent/data/ops.sqlite3",
     },
 )

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Threat Intelligence Console</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+    <style>
+      body {
+        --side: 240px;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: var(--side) 1fr;
+        min-height: 100vh;
+      }
+
+      .app__side {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        padding: 22px 18px;
+        border-right: 1px solid var(--line);
+        background: rgba(8, 8, 10, 0.92);
+        backdrop-filter: blur(10px);
+        z-index: 4;
+      }
+
+      .app__logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 26px;
+        color: var(--fg);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .app__logo i {
+        width: 16px;
+        height: 16px;
+        background: var(--accent);
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .menu a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border-left: 2px solid transparent;
+        color: var(--muted);
+        font-size: 13px;
+        text-decoration: none;
+        transition: color 0.15s ease, background 0.15s ease;
+      }
+
+      .menu a:hover {
+        color: var(--fg);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .menu a.active {
+        border-left-color: var(--accent);
+        background: rgba(255, 59, 47, 0.1);
+        color: var(--fg);
+      }
+
+      .menu small {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      .app__main {
+        min-width: 0;
+        padding: 0 clamp(18px, 3vw, 40px) 60px;
+      }
+
+      .appbar {
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+        background: rgba(5, 5, 6, 0.86);
+        backdrop-filter: blur(12px);
+      }
+
+      .appbar__title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .appbar__right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .view {
+        padding-top: 26px;
+        animation: fade 0.2s ease;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .view__head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .kpis {
+        display: grid;
+        gap: 1px;
+        margin-bottom: 22px;
+        border: 1px solid var(--line);
+        background: var(--line);
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .kpi {
+        padding: 16px 18px;
+        background: var(--bg-soft);
+      }
+
+      .kpi__value {
+        font-size: clamp(22px, 2.4vw, 30px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .kpi__title {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .kpi__hint {
+        margin-top: 2px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10.5px;
+      }
+
+      .split {
+        display: grid;
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .block {
+        padding: 18px;
+        background: var(--bg-soft);
+        min-width: 0;
+      }
+
+      .block__title {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .status-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .status-row:last-child {
+        border-bottom: 0;
+      }
+
+      .feed-item {
+        display: flex;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+      }
+
+      .feed-item:last-child {
+        border-bottom: 0;
+      }
+
+      .feed-item b {
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .scroller {
+        overflow: auto;
+        max-height: 56vh;
+      }
+
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .form-row > * {
+        flex: 1 1 180px;
+      }
+
+      .form-row > .btn {
+        flex: 0 0 auto;
+      }
+
+      .muted-rule {
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      @media (max-width: 900px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+
+        .app__side {
+          position: static;
+          height: auto;
+        }
+
+        .menu {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="app">
+      <aside class="app__side">
+        <a class="app__logo" href="#overview"><i></i>F6 Console</a>
+        <nav class="menu" id="menu">
+          <a href="#overview" data-view="overview">Обзор <small>01</small></a>
+          <a href="#indicators" data-view="indicators">Индикаторы <small>02</small></a>
+          <a href="#hunting" data-view="hunting">Хантинг <small>03</small></a>
+          <a href="#logs" data-view="logs">Журналы <small>04</small></a>
+          <a href="#graph" data-view="graph">Инфраструктура <small>05</small></a>
+          <a href="#domains" data-view="domains">Домены <small>06</small></a>
+          <a href="#reports" data-view="reports">Отчёты <small>07</small></a>
+          <a href="#hosts" data-view="hosts">Хосты <small>08</small></a>
+        </nav>
+      </aside>
+
+      <main class="app__main">
+        <div class="appbar">
+          <span class="appbar__title" id="section-title">Обзор</span>
+          <div class="appbar__right">
+            <span class="badge badge--ok" id="status">проверка API…</span>
+            <button class="btn btn--ghost" id="refresh" type="button">Обновить</button>
+          </div>
+        </div>
+        <section class="view" id="view">
+          <div class="empty">Загрузка данных…</div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

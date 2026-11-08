@@ -36,7 +36,7 @@ selection:
 ## Запуск и тесты
 
 ```powershell
-.\run.ps1                                  # http://127.0.0.1:8102
+.\run.ps1                                  # http://127.0.0.1:8202
 ..\.venv\Scripts\python.exe -m pytest . -q
 ```
 
