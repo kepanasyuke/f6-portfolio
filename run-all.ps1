@@ -17,15 +17,16 @@ if (-not (Test-Path -LiteralPath $python)) {
 New-Item -ItemType Directory -Path $logs -Force | Out-Null
 
 $services = @(
-    @{ name = "site"; port = 8100; dir = $root; args = @("-m", "http.server", "8100", "--bind", "127.0.0.1", "--directory", $root) },
-    @{ name = "01-feed-harvester"; port = 8101; dir = (Join-Path $root "01-feed-harvester") },
-    @{ name = "02-hunt-rules"; port = 8102; dir = (Join-Path $root "02-hunt-rules") },
-    @{ name = "03-log-forge"; port = 8103; dir = (Join-Path $root "03-log-forge") },
-    @{ name = "04-botnet-map"; port = 8104; dir = (Join-Path $root "04-botnet-map") },
-    @{ name = "05-typosquat-radar"; port = 8105; dir = (Join-Path $root "05-typosquat-radar") },
-    @{ name = "06-report-builder"; port = 8106; dir = (Join-Path $root "06-report-builder") },
-    @{ name = "07-ops-agent"; port = 8107; dir = (Join-Path $root "07-ops-agent") },
-    @{ name = "08-data-portal"; port = 8109; dir = (Join-Path $root "08-data-portal") }
+    @{ name = "site"; port = 8200; dir = $root; args = @("-m", "http.server", "8200", "--bind", "127.0.0.1", "--directory", $root) },
+    @{ name = "01-feed-harvester"; port = 8201; dir = (Join-Path $root "01-feed-harvester") },
+    @{ name = "02-hunt-rules"; port = 8202; dir = (Join-Path $root "02-hunt-rules") },
+    @{ name = "03-log-forge"; port = 8203; dir = (Join-Path $root "03-log-forge") },
+    @{ name = "04-botnet-map"; port = 8204; dir = (Join-Path $root "04-botnet-map") },
+    @{ name = "05-typosquat-radar"; port = 8205; dir = (Join-Path $root "05-typosquat-radar") },
+    @{ name = "06-report-builder"; port = 8206; dir = (Join-Path $root "06-report-builder") },
+    @{ name = "07-ops-agent"; port = 8207; dir = (Join-Path $root "07-ops-agent") },
+    @{ name = "08-data-portal"; port = 8209; dir = (Join-Path $root "08-data-portal") },
+    @{ name = "09-console"; port = 8210; dir = (Join-Path $root "09-console") }
 )
 
 $started = @()
@@ -54,10 +55,10 @@ $started | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $logs "pids.json
 Start-Sleep -Seconds 3
 
 Write-Host ""
-Write-Host "Портфолио:        http://127.0.0.1:8100/site/" -ForegroundColor Green
-foreach ($service in $services | Where-Object { $_.port -ne 8100 }) {
+Write-Host "Портфолио:        http://127.0.0.1:8200/site/" -ForegroundColor Green
+foreach ($service in $services | Where-Object { $_.port -ne 8200 }) {
     Write-Host ("{0,-22} http://127.0.0.1:{1}/" -f $service.name, $service.port)
 }
 Write-Host ""
-Write-Host "Документация API: http://127.0.0.1:8101/api/docs (и так далее по портам)"
+Write-Host "Документация API: http://127.0.0.1:8201/api/docs (и так далее по портам)"
 Write-Host "Остановить:       .\stop-all.ps1"
