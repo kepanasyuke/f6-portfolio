@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Витрина стенда</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+    <style>
+      .shot {
+        display: block;
+        border: 1px solid var(--line);
+        background: var(--bg-soft);
+        text-decoration: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .shot:hover {
+        border-color: var(--line-strong);
+      }
+
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .shot__meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 12px 14px;
+      }
+
+      .shot__name {
+        color: var(--fg);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .shot__port {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .movie {
+        border: 1px solid var(--line);
+        background: var(--bg-soft);
+      }
+
+      .movie img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .movie__meta {
+        padding: 12px 14px;
+        border-top: 1px solid var(--line);
+      }
+
+      .gallery {
+        display: grid;
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/site/"><span class="brand__mark"></span>F6 / Витрина</a>
+        <nav class="nav">
+          <a href="#screens">Экраны</a>
+          <a href="#movies">Демонстрации</a>
+          <a href="/site/">Портфолио</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Скриншоты сняты Playwright · Chromium</p>
+        <h1 class="display">Как это<br />выглядит<br />вживую</h1>
+        <p class="lede">
+          Кадры сделаны с работающего стенда: десять страниц и четыре записи с реальной интеракцией — переключение
+          разделов консоли, таблицы портала, прогон правил хантинга и сканирование бренда.
+        </p>
+      </section>
+
+      <section class="section-block" id="screens">
+        <div class="section-head">
+          <div>
+            <p class="kicker">01 — 10</p>
+            <h2 class="section">Экраны</h2>
+          </div>
+          <span class="badge">1440 × 900</span>
+        </div>
+        <div class="gallery" id="screens-grid"></div>
+      </section>
+
+      <section class="section-block" id="movies">
+        <div class="section-head">
+          <div>
+            <p class="kicker">GIF</p>
+            <h2 class="section">Демонстрации</h2>
+          </div>
+          <span class="badge badge--accent">кликабельно</span>
+        </div>
+        <div class="gallery" id="movies-grid"></div>
+      </section>
+
+      <footer class="footer">
+        F6 · Threat Intelligence · витрина собрана скриптом <span class="mono">tools/capture.py</span>
+      </footer>
+    </div>
+    <script type="module">
+      import { initClouds } from "/shared/clouds.js";
+
+      initClouds(document.querySelector("#clouds"));
+
+      const SCREENS = [
+        ["01-site", "Портфолио стенда", 8200, "site/"],
+        ["02-feed-harvester", "Feed Harvester", 8201, ""],
+        ["03-hunt-rules", "Hunt Rules", 8202, ""],
+        ["04-log-forge", "Log Forge", 8203, ""],
+        ["05-botnet-map", "Botnet Map", 8204, ""],
+        ["06-typosquat-radar", "Typosquat Radar", 8205, ""],
+        ["07-report-builder", "Report Builder", 8206, ""],
+        ["08-ops-agent", "Ops Agent", 8207, ""],
+        ["09-data-portal", "Data Portal", 8209, ""],
+        ["10-console", "Console", 8210, ""],
+      ];
+
+      const MOVIES = [
+        ["console", "Консоль: переключение разделов", 8210],
+        ["portal", "Портал: таблицы и поиск", 8209],
+        ["hunting", "Хантинг: прогон правил", 8202],
+        ["radar", "Радар: сканирование бренда", 8205],
+      ];
+
+      const box = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text) node.textContent = text;
+        return node;
+      };
+
+      const screens = document.querySelector("#screens-grid");
+      SCREENS.forEach(([file, title, port, tail]) => {
+        const link = box("a", "shot");
+        link.href = `http://127.0.0.1:${port}/${tail}`;
+        link.target = "_blank";
+        link.rel = "noreferrer";
+        const image = box("img");
+        image.src = `/docs/screens/${file}.png`;
+        image.alt = title;
+        image.loading = "lazy";
+        const meta = box("div", "shot__meta");
+        meta.append(box("span", "shot__name", title), box("span", "shot__port", `:${port}`));
+        link.append(image, meta);
+        screens.append(link);
+      });
+
+      const movies = document.querySelector("#movies-grid");
+      MOVIES.forEach(([file, title, port]) => {
+        const card = box("div", "movie");
+        const image = box("img");
+        image.src = `/docs/gifs/${file}.gif`;
+        image.alt = title;
+        image.loading = "lazy";
+        const meta = box("div", "movie__meta");
+        meta.append(box("span", "shot__name", title), box("span", "shot__port", ` :${port}`));
+        card.append(image, meta);
+        movies.append(card);
+      });
+    </script>
+  </body>
+</html>
