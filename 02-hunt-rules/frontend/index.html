@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Hunt Rules</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#rules">Правила</a>
+          <a href="#editor">Новое правило</a>
+          <a href="#detections">Детекции</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 02 · хантинг</p>
+        <h1 class="display">Правила<br />ловят<br />аномалии</h1>
+        <p class="lede">
+          Правило описывается YAML: набор полей <span class="mono">selection</span>, режим
+          <span class="mono">all/any</span>, поддержка точных значений, списков, glob (<span class="mono">*</span>)
+          и регулярных выражений (<span class="mono">re:</span>). Движок прогоняет библиотеку правил по потоку
+          событий и сохраняет детекции в SQLite.
+        </p>
+      </section>
+
+      <section class="section-block" id="rules">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Библиотека</p>
+            <h2 class="section">Правила хантинга</h2>
+          </div>
+          <div class="row">
+            <span class="badge" id="events">событий: 0</span>
+            <button class="btn" id="run" type="button">Прогнать все</button>
+            <button class="btn btn--ghost" id="replay" type="button">Сохранить детекции</button>
+          </div>
+        </div>
+        <div class="grid grid--two" id="rule-grid"></div>
+      </section>
+
+      <section class="section-block" id="editor">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Своё правило</p>
+            <h2 class="section">Добавить в библиотеку</h2>
+          </div>
+          <span class="badge" id="validate-status">не проверено</span>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack">
+            <label class="field">
+              <span>YAML правила</span>
+              <textarea id="yaml" spellcheck="false">id: F6-9001
+title: Обращение к IP из документационного диапазона
+severity: medium
+tactic: command-and-control
+technique: T1071
+condition: all
+selection:
+  event.type: network
+  destination.ip: "203.0.113.*"</textarea>
+            </label>
+            <div class="row">
+              <button class="btn btn--ghost" id="validate" type="button">Проверить</button>
+              <button class="btn" id="save-rule" type="button">Сохранить правило</button>
+            </div>
+          </div>
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Результат проверки</p>
+            <pre class="mono" id="validate-output" style="margin: 0; white-space: pre-wrap">—</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="results">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Прогон</p>
+            <h2 class="section">Срабатывания</h2>
+          </div>
+          <span class="badge badge--accent" id="total">0 событий</span>
+        </div>
+        <div class="stack" id="findings"></div>
+      </section>
+
+      <section class="section-block" id="detections">
+        <div class="section-head">
+          <div>
+            <p class="kicker">SQLite</p>
+            <h2 class="section">Сохранённые детекции</h2>
+          </div>
+          <button class="btn btn--ghost" id="reload" type="button">Обновить</button>
+        </div>
+        <div class="panel panel--tight" id="detection-table"></div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

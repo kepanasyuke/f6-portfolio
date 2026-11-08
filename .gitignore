@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Базы стенда (создаются при первом запуске)
+*.sqlite3
+!data/
+
+# Логи запуска
+logs/
+
+# Кеши инструментов
+.pytest_cache/
+.ruff_cache/
+.pylint.d/
+mypy_cache/
+
+# Редакторы и ОС
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

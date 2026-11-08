@@ -1,0 +1,12 @@
+{
+  "hosts": [
+    { "name": "edge-gw-01", "role": "gateway", "os": "linux", "ip": "203.0.113.10", "owner": "network", "tags": "perimeter,nginx" },
+    { "name": "bastion-01", "role": "jump-host", "os": "linux", "ip": "203.0.113.11", "owner": "infra", "tags": "ssh" },
+    { "name": "web-01", "role": "web", "os": "linux", "ip": "198.51.100.21", "owner": "product", "tags": "nginx,python" },
+    { "name": "web-02", "role": "web", "os": "linux", "ip": "198.51.100.22", "owner": "product", "tags": "nginx,python" },
+    { "name": "db-01", "role": "database", "os": "linux", "ip": "198.51.100.30", "owner": "dba", "tags": "postgres,backup" },
+    { "name": "siem-01", "role": "siem", "os": "linux", "ip": "192.0.2.40", "owner": "soc", "tags": "elastic,logs" },
+    { "name": "core-dc-01", "role": "domain-controller", "os": "windows", "ip": "192.0.2.50", "owner": "infra", "tags": "ad,dns" },
+    { "name": "fin-ws-07", "role": "workstation", "os": "windows", "ip": "192.0.2.71", "owner": "finance", "tags": "edr" }
+  ]
+}

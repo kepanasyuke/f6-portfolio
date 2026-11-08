@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Threat Intelligence — портфолио стенда</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="./"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#projects">Проекты</a>
+          <a href="#stack">Стек</a>
+          <a href="#rules">Правила кода</a>
+          <a href="#run">Запуск</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Портфолио стенда · 7 сервисов · Python + SQLite</p>
+        <h1 class="display">Разведка<br />угроз,<br />а не слайды</h1>
+        <p class="lede">
+          Семь небольших, но рабочих сервисов под задачи команды Threat Intelligence: парсинг фидов, правила
+          хантинга, нормализация журналов, граф инфраструктуры, бренд-защита, отчёты для портала и эксплуатация
+          серверов. У каждого — бэкенд на FastAPI, фронтенд без сборки и свой набор тестов.
+        </p>
+        <div class="row" style="margin-top: 28px">
+          <a class="btn" href="#projects">Смотреть проекты</a>
+          <a class="btn btn--ghost" href="#run">Как запустить</a>
+        </div>
+      </section>
+
+      <section class="section-block" id="projects">
+        <div class="section-head">
+          <div>
+            <p class="kicker">01 — 07</p>
+            <h2 class="section">Проекты стенда</h2>
+          </div>
+          <span class="badge" id="clock">—</span>
+        </div>
+        <div class="grid grid--two">
+          <a class="card" href="http://127.0.0.1:8101" target="_blank" rel="noreferrer">
+            <span class="card__index">01 · порт 8101</span>
+            <h3 class="card__title">Feed Harvester</h3>
+            <p class="card__text">
+              Парсеры CSV/JSON/построчных фидов с деобфускацией <span class="mono">hxxp</span> и
+              <span class="mono">[.]</span>, определение типа индикатора, дедупликация в SQLite.
+            </p>
+            <div class="card__foot">
+              <span class="tag">python</span><span class="tag">sqlite</span><span class="tag">парсинг</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8102" target="_blank" rel="noreferrer">
+            <span class="card__index">02 · порт 8102</span>
+            <h3 class="card__title">Hunt Rules</h3>
+            <p class="card__text">
+              DSL правил хантинга на YAML: точные значения, списки, glob, регулярки, режимы all/any. Прогон по
+              потоку событий, детекции в базе.
+            </p>
+            <div class="card__foot">
+              <span class="tag">yaml</span><span class="tag">hunting</span><span class="tag">mitre</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8103" target="_blank" rel="noreferrer">
+            <span class="card__index">03 · порт 8103</span>
+            <h3 class="card__title">Log Forge</h3>
+            <p class="card__text">
+              Нормализация syslog, nginx и Windows-выгрузок в поля в духе ECS, собственный инвертированный индекс с
+              масками и ранжированием по IDF.
+            </p>
+            <div class="card__foot">
+              <span class="tag">linux</span><span class="tag">windows</span><span class="tag">поиск</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8104" target="_blank" rel="noreferrer">
+            <span class="card__index">04 · порт 8104</span>
+            <h3 class="card__title">Botnet Map</h3>
+            <p class="card__text">
+              Граф инфраструктуры и пивот в обе стороны через рекурсивный CTE. Рядом — схема и функция
+              <span class="mono">reachable()</span> для PostgreSQL.
+            </p>
+            <div class="card__foot">
+              <span class="tag">sql</span><span class="tag">postgresql</span><span class="tag">canvas</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8105" target="_blank" rel="noreferrer">
+            <span class="card__index">05 · порт 8105</span>
+            <h3 class="card__title">Typosquat Radar</h3>
+            <p class="card__text">
+              Восемь техник генерации похожих доменов, расстояние Левенштейна, риск по сигналам регистрации и
+              нелатинским символам.
+            </p>
+            <div class="card__foot">
+              <span class="tag">бренд-защита</span><span class="tag">алгоритмы</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8106" target="_blank" rel="noreferrer">
+            <span class="card__index">06 · порт 8106</span>
+            <h3 class="card__title">Report Builder</h3>
+            <p class="card__text">
+              Отчёт для закрытого портала: структурированные IOC, наблюдения и рекомендации → Markdown → HTML
+              собственным конвертером, выгрузка файла.
+            </p>
+            <div class="card__foot">
+              <span class="tag">markdown</span><span class="tag">отчётность</span>
+            </div>
+          </a>
+          <a class="card" href="http://127.0.0.1:8107" target="_blank" rel="noreferrer">
+            <span class="card__index">07 · порт 8107</span>
+            <h3 class="card__title">Ops Agent</h3>
+            <p class="card__text">
+              Инвентарь серверов, метрики диска, памяти, патчей и сертификатов, чек-листы укрепления Linux и
+              Windows, журнал действий.
+            </p>
+            <div class="card__foot">
+              <span class="tag">администрирование</span><span class="tag">hardening</span>
+            </div>
+          </a>
+          <div class="card">
+            <span class="card__index">08 · портфель</span>
+            <h3 class="card__title">Общий слой</h3>
+            <p class="card__text">
+              Дизайн-система F6 с анимацией облаков, общий JS-хелпер, линтер-правила и AST-чекер стиля, единый
+              запуск всех сервисов.
+            </p>
+            <div class="card__foot">
+              <span class="tag">design system</span><span class="tag">tooling</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="stack">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Соответствие вакансии</p>
+            <h2 class="section">Что из требований закрыто</h2>
+          </div>
+        </div>
+        <div class="panel panel--tight">
+          <table>
+            <thead>
+              <tr>
+                <th>Требование F6</th>
+                <th>Где в стенде</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Python: чтение кода, парсеры, автоматизация</td><td>все сервисы, 7 наборов тестов</td></tr>
+              <tr><td>Linux и Windows на уровне администратора</td><td>Log Forge (syslog/EVTX-выгрузки), Ops Agent (hardening Linux/Windows)</td></tr>
+              <tr><td>SQL: mysql/mariadb, postgres, sqlite</td><td>SQLite во всех сервисах, PostgreSQL-схема и функция обхода в Botnet Map</td></tr>
+              <tr><td>elasticsearch/opensearch</td><td>Log Forge: инвертированный индекс и маппинг полей</td></tr>
+              <tr><td>Разведка угроз и правила хантинга</td><td>Hunt Rules, Feed Harvester</td></tr>
+              <tr><td>Отчёты для портала и блогов</td><td>Report Builder</td></tr>
+              <tr><td>Администрирование серверов команды</td><td>Ops Agent</td></tr>
+              <tr><td>Внимание к деталям, поиск закономерностей</td><td>пивоты графа, скоринг доменов, сводки по метрикам</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block" id="rules">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Линтер</p>
+            <h2 class="section">Правила кода стенда</h2>
+          </div>
+          <span class="badge badge--ok">0 нарушений</span>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <span class="card__index">правило 1</span>
+            <h3 class="card__title">Одна точка выхода</h3>
+            <p class="card__text">В функции ровно один <span class="mono">return</span>. Ветвление — выражением, а не ранним выходом.</p>
+            <div class="card__foot"><span class="tag">F6S002</span></div>
+          </div>
+          <div class="card">
+            <span class="card__index">правило 2</span>
+            <h3 class="card__title">1–2 инструкции</h3>
+            <p class="card__text">Тело функции — не больше двух инструкций без докстринга. Крупные шаги собираются композицией.</p>
+            <div class="card__foot"><span class="tag">F6S001</span></div>
+          </div>
+          <div class="card">
+            <span class="card__index">правило 3</span>
+            <h3 class="card__title">Без while / break / continue</h3>
+            <p class="card__text">Циклы выражаются генераторами и рекурсией, обход графа уходит в рекурсивный CTE.</p>
+            <div class="card__foot"><span class="tag">F6S003</span></div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top: 1px">
+          <p class="muted" style="margin: 0 0 12px">
+            Правила проверяются тремя инструментами: <span class="mono">ruff.toml</span> (ошибки, импорты, упрощения),
+            <span class="mono">.pylintrc</span> (лимит инструкций и ветвлений) и собственный AST-чекер
+            <span class="mono">lint/check_style.py</span> — он и ловит один выход, две инструкции и запрещённые
+            конструкции.
+          </p>
+          <pre class="mono muted" style="margin: 0; white-space: pre-wrap">.\.venv\Scripts\python.exe lint\check_style.py .</pre>
+        </div>
+      </section>
+
+      <section class="section-block" id="run">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Локально</p>
+            <h2 class="section">Запуск стенда</h2>
+          </div>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Один раз поставить зависимости:</p>
+            <pre class="mono" style="margin: 0; white-space: pre-wrap">python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt</pre>
+            <p class="muted" style="margin: 0">Поднять все сервисы и этот сайт:</p>
+            <pre class="mono" style="margin: 0; white-space: pre-wrap">.\run-all.ps1</pre>
+            <p class="muted" style="margin: 0">Остановить:</p>
+            <pre class="mono" style="margin: 0; white-space: pre-wrap">.\stop-all.ps1</pre>
+          </div>
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Порты</p>
+            <div class="mono" style="font-size: 13px; line-height: 1.9">
+              8100 — этот сайт<br />
+              8101 — Feed Harvester<br />
+              8102 — Hunt Rules<br />
+              8103 — Log Forge<br />
+              8104 — Botnet Map<br />
+              8105 — Typosquat Radar<br />
+              8106 — Report Builder<br />
+              8107 — Ops Agent
+            </div>
+            <p class="muted" style="margin: 0">
+              У каждого сервиса есть <span class="mono">/api/docs</span> и набор тестов:
+              <span class="mono">pytest</span> внутри папки проекта.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        F6 · Threat Intelligence · учебный стенд. Все индикаторы, хосты и события синтетические: используются
+        документационные диапазоны IP (RFC 5737) и домены <span class="mono">example.*</span>.
+      </footer>
+    </div>
+    <script type="module">
+      import { initClouds } from "/shared/clouds.js";
+
+      initClouds(document.querySelector("#clouds"));
+
+      function tick() {
+        const now = new Date();
+        document.querySelector("#clock").textContent = now.toLocaleTimeString("ru-RU");
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    </script>
+  </body>
+</html>

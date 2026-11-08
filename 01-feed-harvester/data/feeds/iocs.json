@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "indicator": "192.0.2.14",
+      "risk": "high",
+      "provider": "telemetry-beta",
+      "score": "83",
+      "date": "2026-09-24",
+      "labels": "bruteforce;ssh"
+    },
+    {
+      "indicator": "hxxps://pay.example.net/verify?id=8821",
+      "risk": "critical",
+      "provider": "phish-watch",
+      "score": "91",
+      "date": "2026-09-26",
+      "labels": "phishing;credential-harvest"
+    },
+    {
+      "indicator": "update.example.co",
+      "risk": "medium",
+      "provider": "dga-radar",
+      "score": "58",
+      "date": "2026-09-27",
+      "labels": "dga"
+    }
+  ]
+}

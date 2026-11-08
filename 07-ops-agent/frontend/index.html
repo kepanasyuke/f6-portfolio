@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F6 · Ops Agent</title>
+    <link rel="stylesheet" href="/shared/f6.css" />
+  </head>
+  <body>
+    <canvas class="clouds" id="clouds"></canvas>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="/"><span class="brand__mark"></span>F6 / Threat Intelligence</a>
+        <nav class="nav">
+          <a href="#hosts">Инвентарь</a>
+          <a href="#detail">Хост</a>
+          <a href="#playbook">Чек-лист</a>
+          <a href="/api/docs" target="_blank" rel="noreferrer">API</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Проект 07 · эксплуатация</p>
+        <h1 class="display">Серверы<br />под<br />контролем</h1>
+        <p class="lede">
+          Инвентарь, метрики и чек-листы укрепления в одном месте: диск, память, LA, пропущенные патчи, срок
+          сертификата и неудачные входы. Каждый прогон пишется в журнал действий, состояние хранится в SQLite.
+        </p>
+      </section>
+
+      <section class="section-block" id="hosts">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Дашборд</p>
+            <h2 class="section">Парк серверов</h2>
+          </div>
+          <div class="row">
+            <span class="badge" id="health">проверка API…</span>
+            <button class="btn" id="check-all" type="button">Прогнать все</button>
+          </div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="panel panel--tight" id="host-table" style="margin-top: 18px"></div>
+      </section>
+
+      <section class="section-block" id="detail">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Карточка</p>
+            <h2 class="section">Состояние выбранного хоста</h2>
+          </div>
+          <span class="badge badge--accent" id="selected">хост не выбран</span>
+        </div>
+        <div class="grid grid--two">
+          <div class="panel stack" id="host-card"><div class="empty">Выберите хост в таблице</div></div>
+          <div class="panel stack">
+            <p class="muted" style="margin: 0">Журнал действий</p>
+            <div class="stack" id="journal" style="gap:8px"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="playbook">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Укрепление</p>
+            <h2 class="section">Чек-лист по ОС</h2>
+          </div>
+          <div class="row">
+            <button class="btn btn--ghost" id="linux" type="button">Linux</button>
+            <button class="btn btn--ghost" id="windows" type="button">Windows</button>
+          </div>
+        </div>
+        <div class="grid" id="checklist"></div>
+      </section>
+
+      <footer class="footer">F6 · Threat Intelligence · учебный стенд, данные синтетические</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

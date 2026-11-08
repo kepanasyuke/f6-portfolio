@@ -1,0 +1,8 @@
+value,kind,severity,source,confidence,first_seen,tags
+203.0.113.24,ip,critical,sinkhole-alpha,94,2026-09-02,c2,rat
+198.51.100.77,ip,high,sinkhole-alpha,81,2026-09-11,scanner
+https://cdn-login.example.com/panel/gate.php,url,critical,phish-watch,88,2026-09-15,phishing,panel
+login-secure.example.org,domain,high,dga-radar,72,2026-09-19,dga,nrd
+3f786850e387550fdab836ed7e6dc881de23001b,hash,medium,malware-lab,63,2026-08-28,loader
+f6b3a1c94d2e5077b19c8a4f0e2d6b85c3a7e91d4f2c08b6a5e3d7c1b9f04a26,hash,high,malware-lab,77,2026-09-21,stealer
+analyst@example.com,email,low,spam-trap,41,2026-09-04,phishing-kit

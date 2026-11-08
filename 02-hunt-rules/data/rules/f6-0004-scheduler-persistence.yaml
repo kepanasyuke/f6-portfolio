@@ -1,0 +1,11 @@
+id: F6-0004
+title: Планировщик задач запускается из необычного контекста
+severity: high
+tactic: persistence
+technique: T1053.005
+condition: any
+selection:
+  process.name:
+    - schtasks.exe
+    - at.exe
+  process.parent.name: services.exe
