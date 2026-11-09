@@ -1,0 +1,8 @@
+Oct  2 09:31:17 edge-gw-01 sshd[2211]: Failed password for root from 203.0.113.24 port 51122 ssh2
+Oct  2 09:31:44 edge-gw-01 sshd[2211]: Failed password for root from 203.0.113.24 port 51138 ssh2
+Oct  2 09:33:02 edge-gw-01 sshd[2216]: Failed password for admin from 203.0.113.24 port 51204 ssh2
+Oct  2 09:34:10 edge-gw-01 sshd[2216]: Invalid user oracle from 203.0.113.24 port 51311
+Oct  2 11:20:33 edge-gw-01 sshd[3050]: Accepted password for d.orlov from 198.51.100.31 port 40222 ssh2
+Oct  2 11:21:02 edge-gw-01 sudo[3055]: PAM pam_unix(sudo:session): session opened for user root by d.orlov
+Oct  2 12:58:19 edge-gw-01 sshd[3410]: Failed password for backup from 192.0.2.201 port 60011 ssh2
+Oct  2 13:05:47 edge-gw-01 sshd[3412]: Accepted publickey for d.orlov from 198.51.100.31 port 40266 ssh2

